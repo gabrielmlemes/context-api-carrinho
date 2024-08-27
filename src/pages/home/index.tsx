@@ -3,18 +3,18 @@ import { useEffect, useState, useContext } from "react";
 import { api } from "../../services/api";
 import { CartContext } from "../../context/CartContext";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 export interface ProductProps {
-  id: number
-  title: string
-  description: string
-  price: number
-  cover: string
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  cover: string;
 }
 
 const Home = () => {
-
-  const {addItemCart} = useContext(CartContext)
+  const { addItemCart } = useContext(CartContext);
 
   const [products, setProducts] = useState<ProductProps[]>([]);
 
@@ -28,14 +28,14 @@ const Home = () => {
   }, []);
 
   function handleCartItem(product: ProductProps) {
-    addItemCart(product)
-    toast.success('Item adicionado ao carrinho', {
+    addItemCart(product);
+    toast.success("Item adicionado ao carrinho", {
       style: {
         borderRadius: 10,
-        background: '#121212',
-        color: '#fff',
-      }
-    })
+        background: "#121212",
+        color: "#fff",
+      },
+    });
   }
 
   return (
@@ -48,19 +48,25 @@ const Home = () => {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           {products.map((product) => (
             <section className="w-full" key={product.id}>
-              <img
-                src={product.cover}
-                alt={product.title}
-                className="w-full rounded-lg max-w-70"
-              />
-              <p className="font-medium mt-1 mb-2">{product.title}</p>
+              <Link to={`/products/${product.id}`}>
+                <img
+                  src={product.cover}
+                  alt={product.title}
+                  className="w-full rounded-lg max-w-70"
+                />
+                <p className="font-medium mt-1 mb-2">{product.title}</p>
+              </Link>
               <div className="flex gap-3 items-center">
-                <strong className="text-zinc-700/90">{product.price.toLocaleString( "pt-BR", {
-                    style: 'currency',
-                    currency: 'BRL'
-                  }
-                )}</strong>
-                <button className="bg-zinc-900 p-1 rounded" onClick={()=> handleCartItem(product)}>
+                <strong className="text-zinc-700/90">
+                  {product.price.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </strong>
+                <button
+                  className="bg-zinc-900 p-1 rounded"
+                  onClick={() => handleCartItem(product)}
+                >
                   <BsCartPlus size={20} color="#fff" />
                 </button>
               </div>

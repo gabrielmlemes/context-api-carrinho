@@ -6,7 +6,7 @@ const Cart = () => {
   const { cart, total, addItemCart, removeItemCart } = useContext(CartContext);
 
   return (
-    <div className="w-full max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto px-4">
       <h1 className="font-medium text-center text-2xl my-4">Meu carrinho</h1>
 
       {cart.length === 0 && (
@@ -45,7 +45,7 @@ const Cart = () => {
             </button>
           </div>
 
-          <strong className="float-right">
+          <strong className="text-center">
             SubTotal: {item.total.toLocaleString('pt-BR', {
               style: 'currency',
               currency: 'BRL'
